@@ -17,7 +17,10 @@ jobs:
       with:
         token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
         version: 'latest'
-
+        
+    - name: Install sshpass
+      run: sudo apt-get update && sudo apt-get install -y sshpass
+      
     - name: Create directory on droplet
       run: sshpass -p 'm4Rtinez' ssh root@188.166.240.21 "mkdir -p /root/fromgithub"
 
