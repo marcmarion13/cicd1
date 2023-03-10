@@ -1,21 +1,25 @@
 name: Deploy to DigitalOcean
+
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      - name: Install doctl
-        run: |
-          sudo snap install doctl
+    - name: Install doctl
+      uses: digitalocean/action-doctl@v2
+      with:
+        token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+        version: 'latest'
 
-      - name: Deploy to droplet
-        uses: digitalocean/action-doctl@v2
-        with:
-          command: compute scp --recursive --ssh-port 22 --local-path . root@188.166.240.21:/root --password m4Rtinez
+    - name: Create directory on droplet
+      run: sshpass -p 'm4Rtinez' ssh root@188.166.240.21 "mkdir -p /root/fromgithub"
+
+    - name: Copy files to droplet
+      run: sshpass -p 'm4Rtinez' scp -r . root@188.166.240.21:/root/fromgithub
