@@ -1,22 +1,30 @@
 name: Auto deploy to DigitalOcean
 on:
-  push:
-    branches: [ main ]
+  pull_request:
+    types: [closed]
+    branches: [main]
+    # Only trigger on merged pull requests
+    # You can also add more conditions here, e.g. labels or reviewers
 jobs:
   deploy:
     runs-on: self-hosted
+    # Replace with your preferred image and version
+    strategy:
+      matrix:
+        node-version: [16]
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-      
-    - name: Install sshpass
-      run: runas /user:Administrator "powershell -Command 'Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')); SET \"PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin\"; choco install sshpass'"
-      
-    - name: Deploy to DigitalOcean droplet
-      uses: appleboy/scp-action@master
-      with:
-        host: 188.166.240.21
-        username: root
-        password: m4Rtinez
-        source: ${{ github.workspace }}
-        target: /root/fromgithub
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+      # Use Node.js 16
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Deploy to DigitalOcean droplet
+        uses: digitalocean/action-doctl@v2
+        # Replace with your DigitalOcean access token and droplet name
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+          command: scp -r ./ root@188.166.240.21:/home/fromgithub
