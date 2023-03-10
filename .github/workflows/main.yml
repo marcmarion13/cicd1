@@ -1,0 +1,26 @@
+name: Auto deploy to DigitalOcean
+on:
+  pull_request:
+    types: [closed]
+    branches: [main]
+    # Only trigger on merged pull requests
+    # You can also add more conditions here, e.g. labels or reviewers
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    # Replace with your preferred image and version
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      # This checks out the code in the pull request
+      with:
+        ref: ${{ github.event.pull_request.head.ref }}
+    - name: Install dependencies
+      run: npm install # Replace with your preferred build command
+    - name: Deploy to DigitalOcean droplet
+      uses: digitalocean/action-doctl@v2
+      # Replace with your DigitalOcean access token and droplet name
+      with:
+        token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+        command: compute scp ./ root@188.166.240.21:~/root
