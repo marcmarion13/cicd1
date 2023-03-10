@@ -28,4 +28,4 @@ jobs:
         # Replace with your DigitalOcean access token and droplet name
         with:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
-          command: compute scp ./ root@188.166.240.21:~/Desktop/fromgithub/
+          command: compute scp ./ root@188.166.240.21:~/root/fromgithub/
