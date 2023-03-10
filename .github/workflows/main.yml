@@ -1,32 +1,21 @@
-name: Auto deploy to DigitalOcean
+name: Deploy to DigitalOcean
 on:
-  pull_request:
-    types: [closed]
-    branches: [main]
-    # Only trigger on merged pull requests
-    # You can also add more conditions here, e.g. labels or reviewers
+  push:
+    branches:
+      - main
 
 jobs:
   deploy:
-    runs-on: self-hosted
-    # Replace with your preferred image and version
-    strategy:
-      matrix:
-        node-version: [16]
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v2
-        with:
-          ref: ${{ github.event.pull_request.head.ref }}
-      # Use Node.js 16
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: ${{ matrix.node-version }}
-      - name: Deploy to DigitalOcean droplet
-        uses: digitalocean/action-doctl@v2
-        # Replace with your DigitalOcean access token and droplet name
-        with:
-          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
-          command: compute scp ./ root@188.166.240.21:~
 
+      - name: Install doctl
+        run: |
+          sudo snap install doctl
+
+      - name: Deploy to droplet
+        uses: digitalocean/action-doctl@v2
+        with:
+          command: compute scp --recursive --ssh-port 22 --local-path . root@188.166.240.21:/root --password m4Rtinez
