@@ -1,28 +1,22 @@
-name: Deploy to DigitalOcean
-
+name: Auto deploy to DigitalOcean
 on:
   push:
     branches: [ main ]
-
 jobs:
   deploy:
-    runs-on: ubuntu-latest
-
+    runs-on: self-hosted
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-
-    - name: Install doctl
-      uses: digitalocean/action-doctl@v2
-      with:
-        token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
-        version: 'latest'
-        
-    - name: Install sshpass
-      run: sudo apt-get update && sudo apt-get install -y sshpass
       
-    - name: Create directory on droplet
-      run: sshpass -p 'm4Rtinez' ssh root@188.166.240.21 "mkdir -p /root/fromgithub"
-
-    - name: Copy files to droplet
-      run: sshpass -p 'm4Rtinez' scp -r . root@188.166.240.21:/root/fromgithub
+    - name: Install sshpass
+      run: sudo apt-get install -y sshpass
+      
+    - name: Deploy to DigitalOcean droplet
+      uses: appleboy/scp-action@master
+      with:
+        host: 188.166.240.21
+        username: root
+        password: m4Rtinez
+        source: ${{ github.workspace }}
+        target: /root/fromgithub
