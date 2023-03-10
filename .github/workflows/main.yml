@@ -8,7 +8,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.10
     # Replace with your preferred image and version
     steps:
     - name: Checkout
