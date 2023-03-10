@@ -8,7 +8,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-22.10
+    runs-on: self-hosted
     # Replace with your preferred image and version
     strategy:
       matrix:
