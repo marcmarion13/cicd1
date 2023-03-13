@@ -1,1 +1,1 @@
-print("marrhwefeewfewftfvsdhtewefweafawefrioncahh")
+print("marrhwefeewfewftfvsdh")
