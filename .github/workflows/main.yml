@@ -1,21 +1,24 @@
-name: Deploy to Ubuntu VM
+name: Deploy to DigitalOcean Droplet
 
 on:
-  pull_request:
-    types: [closed]
-    branches:
-      - main
-    if: github.event.pull_request.merged == true
+  push:
+    branches: [main]
 
 jobs:
   deploy:
     runs-on: self-hosted
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Deploy to DigitalOcean droplet
-        uses: digitalocean/action-doctl@v2
-        # Replace with your DigitalOcean access token and droplet name
-        with:
-          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
-          command: rsync -v -e "ssh -o StrictHostKeyChecking=no" ./ root@128.199.129.95:/home/
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Deploy to DigitalOcean
+      uses: appleboy/ssh-action@master
+      with:
+        host: 128.199.129.95
+        username: root
+        password: ${{ secrets.SSH_PASSWORD }}
+        script: |
+          cd /home
+          rm -rf *
+          rsync -r --delete-after --quiet $GITHUB_WORKSPACE/ .
