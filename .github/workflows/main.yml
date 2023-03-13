@@ -13,11 +13,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Setup SSH agent
-        uses: webfactory/ssh-agent@master
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-          ssh-agent-path: D:\ojt applications\app\Git\usr\bin\ssh-agent.exe
       - name: Deploy code
         run: |
-          ssh -o "StrictHostKeyChecking=no" marc@49.149.130.81 "cd /home/marc && git pull origin mytry2"
+          ssh -i /path/to/private/key marc@49.149.130.81 "cd /home/marc && git pull origin mytry2"
