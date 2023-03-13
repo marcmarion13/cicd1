@@ -12,7 +12,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Deploy code
-        uses: appleboy/ssh-action@master
+        uses: microsoft/openssh-windows@master
         with:
           host: 49.149.130.81
           username: marc
