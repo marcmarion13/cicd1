@@ -15,4 +15,4 @@ jobs:
         uses: actions/checkout@v2
       - name: Deploy code
         run: |
-          C:\OpenSSH-Win64\ssh.exe -i C:\Users\lemuel/.ssh/id_rsa/qwe.txt marc@49.149.130.81 "cd /home/marc && git pull origin mytry2"
+          C:\OpenSSH-Win64\ssh.exe -i C:\Users\lemuel\una marc@49.149.130.81 "cd /home/marc && git pull origin mytry2"
