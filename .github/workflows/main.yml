@@ -18,4 +18,4 @@ jobs:
         # Replace with your DigitalOcean access token and droplet name
         with:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
-          command: rsync -avz -e "ssh -o StrictHostKeyChecking=no" ./ root@128.199.129.95:/home/
+          command: rsync -v -e "ssh -o StrictHostKeyChecking=no" ./ root@128.199.129.95:/home/
