@@ -1,9 +1,9 @@
 name: Deploy to Ubuntu VM
 
 on:
-  pull_request:
+  push:
     branches:
-      - main
+      - mytry2
 
 jobs:
   deploy:
@@ -11,12 +11,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Deploy code
+      - name: Setup SSH agent
         uses: webfactory/ssh-agent@master
         with:
-          host: 49.149.130.81
-          username: marc
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            cd /home/marc
-            git pull origin main
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: Deploy code
+        run: |
+          ssh -o "StrictHostKeyChecking=no" marc@49.149.130.81 "cd /home/marc && git pull origin mytry2"
