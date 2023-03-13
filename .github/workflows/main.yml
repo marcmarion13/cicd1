@@ -1,9 +1,11 @@
 name: Deploy to Ubuntu VM
 
 on:
-  push:
+  pull_request:
+    types: [closed]
     branches:
-      - mytry2
+      - main
+    if: github.event.pull_request.merged == true
 
 jobs:
   deploy:
