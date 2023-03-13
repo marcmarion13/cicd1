@@ -3,7 +3,7 @@ name: Deploy to Ubuntu VM
 on:
   push:
     branches:
-      - cicd1
+      - mytry2
 
 jobs:
   deploy:
@@ -19,4 +19,4 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd /home/marc
-            git pull origin cicd1
+            git pull origin mytry2
