@@ -13,10 +13,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Deploy code
-        run: |
-          C:\OpenSSH-Win64\ssh.exe -o "PasswordAuthentication=yes" -o "PreferredAuthentications=password" root@128.199.129.95 "cd /root && git pull origin mytry2"
-
+      - name: Deploy to DigitalOcean droplet
+        uses: digitalocean/action-doctl@v2
+        # Replace with your DigitalOcean access token and droplet name
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+          command: scp -r ./ root@128.199.129.95:/home/
 
 
   
