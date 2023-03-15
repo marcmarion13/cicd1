@@ -10,7 +10,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Deploy to Ubuntu
-      uses: appleboy/ssh-action@v2.3.0
+      uses: appleboy/ssh-action@v2.4.0
       with:
         host: 192.168.0.116
         username: ${{ secrets.SSH_USERNAME }}
