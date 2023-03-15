@@ -10,8 +10,9 @@ jobs:
   build-and-deploy:
     runs-on: self-hosted
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v2
     - name: Copy files to remote server using SCP
-      run: scp -r -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "./cicd1/main/*" marc@192.168.0.116:/home/marc/
+      run: scp -r -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ./cicd1/* marc@192.168.0.116:/home/marc/
       env:
-        SSH_PASSWORD: ${{ env.SSH_PASSWORD }}
+        SSH_PASSWORD: $(cat /etc/ssh/sshpw.txt)
