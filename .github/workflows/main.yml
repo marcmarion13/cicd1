@@ -1,8 +1,10 @@
 name: Deploy on Merge to Ubuntu
 
 on:
-  push:
-    branches: [ main ]
+  pull_request:
+    types:
+      - closed
+      - merged
 
 jobs:
   build-and-deploy:
@@ -10,7 +12,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Copy files to remote server using SCP
-      uses: jakejarvis/sftp-deploy@4.1.4
+      uses: wlixcc/SFTP-Deploy-Action@v1.2.4
       with:
         hostname: 192.168.0.116
         username: marc
