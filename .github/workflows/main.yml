@@ -15,7 +15,7 @@ jobs:
         server: 192.168.0.116
         username: ${{ secrets.SSH_USERNAME }}
         password: ${{ secrets.SSH_PASSWORD }}
-        port: 21
         protocol: ftp
-        local-dir: .
-        server-dir: ~/Desktop/fromgi
+        local-dir: "./"
+        server-dir: "~/Desktop/fromgi/"
+        port: 21
