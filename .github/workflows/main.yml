@@ -10,7 +10,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Copy files to remote server using SCP
-      uses: appleboy/scp-action@master
+      uses: jakejarvis/sftp-deploy@4.1.4
       with:
         hostname: 192.168.0.116
         username: marc
