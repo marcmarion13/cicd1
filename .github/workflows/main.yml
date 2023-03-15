@@ -12,6 +12,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Copy files to remote server using SCP
-      run: scp -r -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ./ marc@192.168.0.116:/home/marc/
+      run: scp -v -r -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ./ marc@192.168.0.116:/home/marc/
       env:
         SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
