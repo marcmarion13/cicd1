@@ -10,7 +10,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Deploy to Ubuntu
-      uses: SamKirkland/FTP-Deploy-Action@4.1.1
+      uses: SamKirkland/FTP-Deploy-Action@4.3.3
       with:
         server: 192.168.0.116
         username: ${{ secrets.SSH_USERNAME }}
