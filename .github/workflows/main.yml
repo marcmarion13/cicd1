@@ -11,7 +11,7 @@ jobs:
     runs-on: self-hosted
     steps:
     - name: Delete old cloned repository
-      run: rm -rf ~/cicd1
+      run: Remove-Item -Recurse -Force ~/cicd1
     - name: Clone repository
       run: git clone https://github.com/marcmarion13/cicd1.git ~/cicd1
     - name: Copy files to remote server using SCP
