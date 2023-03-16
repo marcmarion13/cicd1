@@ -12,7 +12,11 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
+      with:
+        ref: ${{ github.head_ref }}
+        path: './repo'
+        clean: true
     - name: Copy files to remote server using SCP
-      run: scp -r -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ./cicd1/* marc@192.168.0.116:/home/marc/
+      run: scp -r -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ./repo/cicd1/* marc@192.168.0.116:/home/marc/
       env:
         SSH_PASSWORD: $(cat /etc/ssh/sshpw.txt)
