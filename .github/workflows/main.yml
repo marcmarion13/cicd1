@@ -15,4 +15,4 @@ jobs:
     - name: Clone repository
       run: git clone https://github.com/marcmarion13/cicd1.git ~/cicd1
     - name: Copy files to remote server using SCP
-      run: scp -r -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ~/cicd1/* marc@192.168.0.116:/home/marc/
+      run: scp -r -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ~/cicd1/* marc@192.168.0.116:/home/marc/githubmy
