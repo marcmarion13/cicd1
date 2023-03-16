@@ -10,12 +10,10 @@ jobs:
   build-and-deploy:
     runs-on: self-hosted
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-      with:
-        path: '~/cicd1' # clone the repository to the specified path on the host machine
-        clean: true # remove any existing files in the cicd1 directory
-        fetch-depth: 0 # fetch all commits and branches to ensure we have the latest code
+    - name: Delete old cloned repository
+      run: rm -rf ~/cicd1
+    - name: Clone repository
+      run: git clone https://github.com/marcmarion13/cicd1.git ~/cicd1
     - name: Copy files to remote server using SCP
       run: scp -r -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ~/cicd1/* marc@192.168.0.116:/home/marc/
       env:
