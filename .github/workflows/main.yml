@@ -10,13 +10,8 @@ jobs:
   build-and-deploy:
     runs-on: self-hosted
     steps:
-    - name: Create directory if it does not exist
-      run: |
-        if (!(Test-Path ~/cicd1)) {
-          New-Item -ItemType Directory -Path ~/cicd1
-        }
     - name: Delete old cloned repository
-      run: Remove-Item -Recurse -Force ~/cicd1
+      run: rm -rf ~/cicd1
     - name: Clone repository
       run: git clone https://github.com/marcmarion13/cicd1.git ~/cicd1
     - name: Copy files to remote server using SCP
