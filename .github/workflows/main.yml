@@ -13,10 +13,10 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
       with:
-        path: 'C:/Users/lemuel/Desktop/cicd1' # clone the repository to the specified path on the host machine
+        path: '~/cicd1' # clone the repository to the specified path on the host machine
         clean: true # remove any existing files in the cicd1 directory
         fetch-depth: 0 # fetch all commits and branches to ensure we have the latest code
     - name: Copy files to remote server using SCP
-      run: scp -r -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "C:/Users/lemuel/Desktop/cicd1/*" marc@192.168.0.116:/home/marc/
+      run: scp -r -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ~/cicd1/* marc@192.168.0.116:/home/marc/
       env:
         SSH_PASSWORD: $(cat /etc/ssh/sshpw.txt)
