@@ -15,4 +15,4 @@ jobs:
     - name: Clone repository
       run: git clone https://github.com/marcmarion13/cicd1.git ~/cicd1
     - name: Copy files to remote server using SCP
-      run: scp -r -i /path/to/ssh/key ~/cicd1/* root@174.138.20.241:/root/Desktop/
+      run: scp -r -i /home/marc/Desktop/dokey/ubuntusshkey.pub ~/cicd1/* root@174.138.20.241:/root/Desktop/
